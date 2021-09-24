@@ -22,7 +22,10 @@ app.set("view engine", "html");
 app.use(express.static(__dirname + "/views/"));
 
 // Defining route middlewares
+app.use("/api/signup", require("./routes/signupRouter"));
 app.use("/api/products", require("./routes/productRouter"));
+
+// error handling
 
 // Listening to port
 app.listen(port);
