@@ -21,7 +21,7 @@ app.set("view engine", "html");
 // Static folder
 app.use(express.static(__dirname + "/views/"));
 
-// Defining route middleware
+// Defining route middlewares
 app.use("/api/products", require("./routes/productRouter"));
 
 // Listening to port
