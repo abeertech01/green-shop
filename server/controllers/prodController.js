@@ -11,7 +11,10 @@ const getProducts = async (req, res) => {
 
 const uploadProduct = async (req, res) => {
   try {
-    const result = await Product.create(req.body);
+    const result = await Product.create({
+      ...req.body,
+      prodImage: req.file.filename,
+    });
     res.json(result);
   } catch (err) {
     console.log(err);

@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get("/", getProducts);
 
-router.post("/upload", upload.single("photo"), uploadProduct);
+router.post("/upload", upload.single("prodImage"), uploadProduct);
 
 module.exports = router;
