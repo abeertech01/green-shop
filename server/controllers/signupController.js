@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 
 const People = require("../models/People");
 
+const getToken = require("../helpers/generateToken");
+
 const signup = async (req, res) => {
   let hashedPassword = await bcrypt.hash(req.body.password, 12);
   try {
@@ -12,14 +14,21 @@ const signup = async (req, res) => {
         password: hashedPassword,
         adminCode: hashedAdminCode,
       });
-      res.status(201).json(user);
     } else {
       const user = await People.create({
         ...req.body,
         password: hashedPassword,
       });
-      res.status(201).json(user);
     }
+
+    const tokenAndUserObj = await getToken(req.body);
+    const userObject = tokenAndUserObj.userObject;
+    const token = tokenAndUserObj.token;
+
+    res.status(201).json({
+      userObject,
+      token,
+    });
   } catch (err) {
     console.log(err.message);
   }
