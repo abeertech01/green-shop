@@ -23,6 +23,7 @@ app.use(express.static(__dirname + "/views/"));
 
 // Defining route middlewares
 app.use("/api/signup", require("./routes/signupRouter"));
+app.use("/api/login", require("./routes/loginRouter"));
 app.use("/api/products", require("./routes/productRouter"));
 
 // error handling
