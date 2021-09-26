@@ -16,7 +16,6 @@ const login = async (req, res) => {
 
       if (isValidPassword) {
         const tokenAndUserObj = await getToken(req.body);
-        console.log(tokenAndUserObj);
         const userObject = tokenAndUserObj.userObject;
         const token = tokenAndUserObj.token;
         res.json({
