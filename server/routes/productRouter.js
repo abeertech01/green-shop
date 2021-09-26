@@ -6,6 +6,7 @@ const {
   prodValidator,
   prodValidationResult,
 } = require("../middlewares/products/prodValidators");
+const checkLogin = require("../helpers/checkLogin");
 
 const router = express.Router();
 
@@ -13,6 +14,7 @@ router.get("/", getProducts);
 
 router.post(
   "/upload",
+  checkLogin,
   upload.single("prodImage"),
   prodValidator,
   prodValidationResult,

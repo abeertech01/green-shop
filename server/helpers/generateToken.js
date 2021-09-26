@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/People");
 
 module.exports = async (reqBody) => {
-  const user = await User.find({ email: reqBody.email });
+  const user = await User.findOne({ email: reqBody.email });
 
   const userObject = {
     userName: user.userName,
