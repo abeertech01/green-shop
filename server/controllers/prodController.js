@@ -1,3 +1,5 @@
+const createError = require("http-errors");
+
 const Product = require("../models/Product");
 
 const getProducts = async (req, res) => {
@@ -5,7 +7,7 @@ const getProducts = async (req, res) => {
     const products = await Product.find();
     res.json(products);
   } catch (err) {
-    console.log(err);
+    throw createError(err);
   }
 };
 
@@ -17,7 +19,7 @@ const uploadProduct = async (req, res) => {
     });
     res.json(result);
   } catch (err) {
-    console.log(err);
+    throw createError(err);
   }
 };
 

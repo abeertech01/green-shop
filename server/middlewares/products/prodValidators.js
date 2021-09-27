@@ -1,6 +1,7 @@
 const { check, validationResult } = require("express-validator");
 const { unlink } = require("fs");
 const path = require("path");
+const createError = require("http-errors");
 
 const Product = require("../../models/Product");
 
@@ -15,10 +16,10 @@ const prodValidator = [
       try {
         const product = await Product.findOne({ prodName: value });
         if (product) {
-          throw Error("This product is already in stock! 🧨");
+          createError("This product is already in stock! 🧨");
         }
       } catch (err) {
-        throw Error(err.message);
+        createError(err.message);
       }
     }),
   check("quantity").isNumeric(),

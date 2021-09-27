@@ -5,16 +5,19 @@
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",
-    "serve": "nodemon server.js",
+    "serve": "cross-env NODE_ENV=development nodemon server.js",
+    "prod": "cross-env NODE_ENV=production node server.js",
     "format": "prettier server.js **/*.js --write"
   },
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.4",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "express-validator": "^6.12.1",
+    "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.7",
     "multer": "^1.4.3"

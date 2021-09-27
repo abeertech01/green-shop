@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+const createError = require("http-errors");
 
 const UPLOADS_FOLDER = `${__dirname}/../../public/uploads`;
 const allowed_file_types = ["image/jpeg", "image/jpg", "image/png"];
@@ -31,7 +32,7 @@ const upload = multer({
     if (allowed_file_types.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error("Only .jpeg, .jpg and .png files are allowed!"));
+      cb(createError("Only .jpeg, .jpg and .png files are allowed!"));
     }
   },
 });

@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const createError = require("http-errors");
 
 const User = require("../models/People");
 
@@ -23,17 +24,19 @@ const login = async (req, res) => {
           token,
         });
       } else {
-        res.json({
-          error: "Invalid email or password! Try again.",
-        });
+        throw createError("Invalid email or password! Try again.");
       }
     } else {
-      res.json({
-        error: "Invalid email or password! Try again.",
-      });
+      throw createError("Invalid email or password! Try again.");
     }
   } catch (err) {
-    console.log(err);
+    res.json({
+      errors: {
+        common: {
+          message: err.message,
+        },
+      },
+    });
   }
 };
 

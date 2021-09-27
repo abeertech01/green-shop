@@ -27,7 +27,16 @@ app.use("/api/login", require("./routes/loginRouter"));
 app.use("/api/products", require("./routes/productRouter"));
 app.use("/api/buy", require("./routes/buyProducts"));
 
-// error handling
+const {
+  notFoundHandler,
+  errorHandler,
+} = require("./middlewares/common/errorHandlers");
+
+// 404 error handling
+app.use(notFoundHandler);
+
+// common error handling
+app.use(errorHandler);
 
 // Listening to port
 app.listen(port);
