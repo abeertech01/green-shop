@@ -25,6 +25,7 @@ app.use(express.static(__dirname + "/views/"));
 app.use("/api/signup", require("./routes/signupRouter"));
 app.use("/api/login", require("./routes/loginRouter"));
 app.use("/api/products", require("./routes/productRouter"));
+app.use("/api/buy", require("./routes/buyProducts"));
 
 // error handling
 
