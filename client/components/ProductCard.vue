@@ -27,8 +27,22 @@ export default {
 </script>
 
 <style scoped>
+.product-card {
+  margin: 2rem 0.5rem;
+  width: 25rem;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
 .image {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 18rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #7ffdc8;
+  border-radius: 0.5rem;
+}
+.details {
+  padding: 1rem;
 }
 </style>
