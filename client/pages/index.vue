@@ -2,31 +2,29 @@
   <div class="container">
     <div>
       <Logo />
-      <h2 class="subtitle">MEVN starter template based on Nuxt-js</h2>
-      <div class="links">
-        <a
-          href="https://mevn.madlabs.xyz"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/madlabsinc/mevn-cli"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div class="product-list">
+        <ProductCard v-for="prod in products" :key="prod._id" :product="prod" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      prods: [],
+    }
+  },
+  computed: {
+    products() {
+      return this.$store.state.products
+    },
+  },
+  async created() {
+    await this.$store.dispatch('getProducts')
+  },
+}
 </script>
 
 <style>
