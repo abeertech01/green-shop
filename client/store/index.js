@@ -15,19 +15,18 @@ export const mutations = {
       product.imageLink = `http://localhost:9000/uploads/${product.prodImage}`
     })
   },
-  BUY_PRODUCT(state, prodId) {
-    const record = state.boughtProducts.find((prod) => prod._id === prodId)
+  BUY_PRODUCT(state, payload) {
+    const record = state.boughtProducts.find(
+      (prod) => prod._id === payload.prodId
+    )
 
     if (record) {
       const recordIndex = state.boughtProducts.findIndex(
-        (prod) => prod._id === prodId
+        (prod) => prod._id === payload.prodId
       )
       state.boughtProducts[recordIndex].boughtStock++
     } else {
-      state.boughtProducts.push({
-        prodId,
-        boughtStock: 1,
-      })
+      state.boughtProducts.push(payload)
     }
   },
   INCREASE_CART_LIST(state) {

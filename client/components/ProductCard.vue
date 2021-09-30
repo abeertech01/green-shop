@@ -26,16 +26,15 @@
 export default {
   /* eslint-disable */
   props: ['product'],
-  data() {
-    return {
-      buyStock: 0,
-    }
-  },
   methods: {
     addProduct() {
-      this.buyStock++
-
-      this.$store.commit('BUY_PRODUCT', this.product._id)
+      this.$store.commit('BUY_PRODUCT', {
+        prodId: this.product._id,
+        prodName: this.product.prodName,
+        quantity: this.product.quantity,
+        price: this.product.price,
+        boughtStock: 1,
+      })
       this.$store.commit('INCREASE_CART_LIST')
     },
   },
