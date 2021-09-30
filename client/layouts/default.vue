@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Auth />
     <Nuxt />
   </div>
 </template>
@@ -19,7 +20,7 @@ body {
 
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: calc(100vh - 3.4375rem);
   display: flex;
   justify-content: center;
   align-items: center;
