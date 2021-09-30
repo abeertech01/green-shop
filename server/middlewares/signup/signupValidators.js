@@ -26,7 +26,7 @@ const userValidators = [
   check("password")
     .isStrongPassword()
     .withMessage(
-      "Password must contain at least 1 lowercase letter, 1 number and 1symbol!"
+      "Password must contain 8 characters with at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 symbol!"
     ),
 ];
 

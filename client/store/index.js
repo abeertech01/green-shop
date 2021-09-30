@@ -41,7 +41,7 @@ export const actions = {
     context.commit('GET_PRODUCTS', products)
     context.commit('GET_IMAGE_LINK')
   },
-  async register(context, payload) {
+  async register(_, payload) {
     const res = await fetch('http://localhost:9000/api/signup', {
       method: 'POST',
       headers: {
@@ -52,7 +52,7 @@ export const actions = {
     const registered = await res.json()
 
     if (!registered) {
-      console.log('Not registered ', registered)
+      console.log(registered)
     }
   },
 }

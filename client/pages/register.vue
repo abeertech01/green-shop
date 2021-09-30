@@ -3,7 +3,7 @@
     <div class="auth-form">
       <h1 class="title">Register</h1>
       <div class="user-name">
-        <label for="name">Name</label>
+        <label for="name">Name<small class="compulsory">*</small></label>
         <input type="text" id="name" placeholder="Enter Name" v-model="name" />
         <p class="error-para" v-if="err_name">
           Name has to have minimum 2 letters
@@ -11,7 +11,7 @@
       </div>
 
       <div class="user-email">
-        <label for="email">Email</label>
+        <label for="email">Email<small class="compulsory">*</small></label>
         <input
           type="email"
           id="email"
@@ -22,7 +22,9 @@
       </div>
 
       <div class="user-password">
-        <label for="password">Password</label>
+        <label for="password"
+          >Password<small class="compulsory">*</small></label
+        >
         <input
           type="password"
           id="password"
@@ -30,12 +32,15 @@
           v-model="password"
         />
         <p class="error-para" v-if="err_password">
-          Password needs to be minimum 8 characters long!
+          Password must contain 8 characters with at least 1 lowercase letter, 1
+          uppercase letter, 1 number and 1 symbol!
         </p>
       </div>
 
       <div class="user-confirm-password">
-        <label for="password">Confirm Password</label>
+        <label for="password"
+          >Confirm Password<small class="compulsory">*</small></label
+        >
         <input
           type="password"
           id="password"
@@ -47,8 +52,18 @@
         </p>
       </div>
 
+      <div class="user-admin-code">
+        <label for="password">Admin Code <small>(Optional)</small></label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Admin Code"
+          v-model="adminCode"
+        />
+      </div>
+
       <div class="error-para" v-if="err_common">
-        Every input must not be empty!!
+        Every starred input must not be empty!!
       </div>
 
       <div class="signup-div">
@@ -66,6 +81,7 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
+      adminCode: '',
       err_name: false,
       err_email: false,
       err_password: false,
@@ -73,8 +89,14 @@ export default {
       err_common: false,
     }
   },
+  computed: {
+    checkPassword() {
+      const regexPW = this.password.match(/[\W0-9A-Za-z_]/g).join('')
+      return this.password === regexPW
+    },
+  },
   methods: {
-    signup() {
+    async signup() {
       if (this.name.length < 2 && this.name.length !== 0) {
         this.err_name = true
       } else {
@@ -87,7 +109,10 @@ export default {
         this.err_email = false
       }
 
-      if (this.password.length < 8 && this.password.length !== 0) {
+      if (
+        (this.password.length < 8 && this.password.length !== 0) ||
+        !this.checkPassword
+      ) {
         this.err_password = true
       } else {
         this.err_password = false
@@ -111,6 +136,29 @@ export default {
         this.err_common = true
       } else {
         this.err_common = false
+      }
+
+      if (
+        this.err_name === false &&
+        this.err_email === false &&
+        this.err_password === false &&
+        this.err_confirmPassword === false &&
+        this.err_common === false
+      ) {
+        if (this.adminCode.length > 0) {
+          await this.$store.dispatch('register', {
+            userName: this.name,
+            email: this.email,
+            password: this.password,
+            adminCode: this.adminCode,
+          })
+        } else {
+          await this.$store.dispatch('register', {
+            userName: this.name,
+            email: this.email,
+            password: this.password,
+          })
+        }
       }
     },
   },
@@ -167,5 +215,8 @@ label,
   border-radius: 0.2rem;
   cursor: pointer;
   outline: none;
+}
+.compulsory {
+  color: tomato;
 }
 </style>
