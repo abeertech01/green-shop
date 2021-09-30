@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h1>Green Shop</h1>
+      <h1 class="site-title">Green Shop</h1>
       <Logo />
       <NuxtLink class="to-products" to="/products">Buy now</NuxtLink>
     </div>
@@ -9,9 +9,13 @@
 </template>
 
 <style scoped>
-h1 {
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&display=swap');
+
+.site-title {
   font-size: 4rem;
   margin-bottom: 5rem;
+  color: #002e3b;
+  font-family: 'Francois One', sans-serif;
 }
 .to-products {
   background-color: #7ffdc8;

@@ -1,6 +1,8 @@
 export const state = () => {
   return {
     products: [],
+    boughtProducts: [],
+    cartList: 0,
   }
 }
 
@@ -12,6 +14,24 @@ export const mutations = {
     state.products.forEach((product) => {
       product.imageLink = `http://localhost:9000/uploads/${product.prodImage}`
     })
+  },
+  BUY_PRODUCT(state, prodId) {
+    const record = state.boughtProducts.find((prod) => prod._id === prodId)
+
+    if (record) {
+      const recordIndex = state.boughtProducts.findIndex(
+        (prod) => prod._id === prodId
+      )
+      state.boughtProducts[recordIndex].boughtStock++
+    } else {
+      state.boughtProducts.push({
+        prodId,
+        boughtStock: 1,
+      })
+    }
+  },
+  INCREASE_CART_LIST(state) {
+    state.cartList++
   },
 }
 

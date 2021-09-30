@@ -7,7 +7,7 @@
         alt="shopping-bag"
       />
       <div class="cart-counter">
-        <div class="counter">5</div>
+        <div class="counter">{{ cartList }}</div>
         <button class="go-to-cart">
           <img src="../../assets/shopping-cart.svg" alt="shopping-cart" /> Cart
           List
@@ -25,6 +25,9 @@ export default {
   computed: {
     products() {
       return this.$store.state.products
+    },
+    cartList() {
+      return this.$store.state.cartList
     },
   },
   async created() {
@@ -46,7 +49,7 @@ export default {
 }
 .cart-counter .counter {
   display: block;
-  width: 2.83625rem;
+  width: 3.5rem;
   height: 2.83625rem;
   font-size: 2rem;
   border-radius: 0.4rem;

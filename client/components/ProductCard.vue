@@ -16,7 +16,7 @@
         <span>Stock:</span> <span>{{ product.stock }}</span>
       </p>
     </div>
-    <button class="cart-btn">
+    <button class="cart-btn" @click="addProduct">
       <img src="../assets/shopping-cart.svg" alt="" /> Add to Cart
     </button>
   </div>
@@ -26,6 +26,19 @@
 export default {
   /* eslint-disable */
   props: ['product'],
+  data() {
+    return {
+      buyStock: 0,
+    }
+  },
+  methods: {
+    addProduct() {
+      this.buyStock++
+
+      this.$store.commit('BUY_PRODUCT', this.product._id)
+      this.$store.commit('INCREASE_CART_LIST')
+    },
+  },
 }
 </script>
 
