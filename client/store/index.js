@@ -3,6 +3,7 @@ export const state = () => {
     products: [],
     boughtProducts: [],
     cartList: 0,
+    token: null,
   }
 }
 
@@ -41,7 +42,7 @@ export const actions = {
     context.commit('GET_PRODUCTS', products)
     context.commit('GET_IMAGE_LINK')
   },
-  async register(_, payload) {
+  async register(context, payload) {
     const res = await fetch('http://localhost:9000/api/signup', {
       method: 'POST',
       headers: {
@@ -50,9 +51,15 @@ export const actions = {
       body: JSON.stringify(payload),
     })
     const registered = await res.json()
+    context.state.token = registered.token
 
-    if (!registered) {
-      console.log(registered)
+    window.localStorage.setItem('green-shop-token', registered.token)
+  },
+  checkToken(context) {
+    const setToken = window.localStorage.getItem('green-shop-token')
+
+    if (setToken) {
+      context.state.token = setToken
     }
   },
 }
