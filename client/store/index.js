@@ -33,6 +33,9 @@ export const mutations = {
   INCREASE_CART_LIST(state) {
     state.cartList++
   },
+  CHECK_LOGIN(state, payload) {
+    state.token = payload
+  },
 }
 
 export const actions = {
@@ -53,13 +56,6 @@ export const actions = {
     const registered = await res.json()
     context.state.token = registered.token
 
-    window.localStorage.setItem('green-shop-token', registered.token)
-  },
-  checkToken(context) {
-    const setToken = window.localStorage.getItem('green-shop-token')
-
-    if (setToken) {
-      context.state.token = setToken
-    }
+    localStorage.setItem('green-shop-token', registered.token)
   },
 }

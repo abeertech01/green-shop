@@ -1,6 +1,11 @@
 const express = require("express");
 
-const { getProducts, uploadProduct } = require("../controllers/prodController");
+const {
+  getProducts,
+  uploadProduct,
+  increaseStock,
+  removeProduct,
+} = require("../controllers/prodController");
 const upload = require("../middlewares/products/picUpload");
 const {
   prodValidator,
@@ -22,5 +27,9 @@ router.post(
   prodValidationResult,
   uploadProduct
 );
+
+router.patch("/increase-stock/:id", checkLogin, checkAdmin, increaseStock);
+
+router.delete("/remove-product/:id", checkLogin, checkAdmin, removeProduct);
 
 module.exports = router;

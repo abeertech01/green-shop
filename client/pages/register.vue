@@ -152,12 +152,14 @@ export default {
             password: this.password,
             adminCode: this.adminCode,
           })
+          this.$router.push('/products')
         } else {
           await this.$store.dispatch('register', {
             userName: this.name,
             email: this.email,
             password: this.password,
           })
+          this.$router.push('/products')
         }
       }
     },

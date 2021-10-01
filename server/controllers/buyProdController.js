@@ -1,3 +1,5 @@
+const createError = require("http-errors");
+
 const Product = require("../models/Product");
 
 const buyProd = async (req, res) => {
@@ -7,26 +9,28 @@ const buyProd = async (req, res) => {
   const product = await Product.findById(id);
   const remainingStock = product.stock - boughtStock;
 
-  const customerName = "Abeer";
+  const customerName = req.user.userName;
 
   try {
-    if (boughtStock == 1) {
-      await Product.findByIdAndUpdate(id, { stock: remainingStock });
-      res.json({
-        message: `${customerName} has just bought ${req.body.boughtStock} ${product.prodName}`,
-      });
-    } else if (boughtStock > 1) {
-      await Product.findByIdAndUpdate(id, { stock: remainingStock });
-      res.json({
-        message: `${customerName} has just bought ${req.body.boughtStock} ${product.prodName}s`,
-      });
+    if (boughtStock <= product.stock && boughtStock !== 0) {
+      if (boughtStock == 1) {
+        await Product.findByIdAndUpdate(id, { stock: remainingStock });
+        res.json({
+          message: `${customerName} has just bought ${req.body.boughtStock} ${product.prodName}`,
+        });
+      } else {
+        await Product.findByIdAndUpdate(id, { stock: remainingStock });
+        res.json({
+          message: `${customerName} has just bought ${req.body.boughtStock} ${product.prodName}s`,
+        });
+      }
     } else {
       res.json({
-        error: `Select an amount how much you want to purchase`,
+        error: "buying amount cannot be 0 or more than stock",
       });
     }
   } catch (err) {
-    throw Error(err);
+    throw createError(err);
   }
 };
 

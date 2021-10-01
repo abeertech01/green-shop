@@ -5,6 +5,18 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted() {
+    const theToken = localStorage.getItem('green-shop-token')
+
+    if (theToken) {
+      this.$store.commit('CHECK_LOGIN', theToken)
+    }
+  },
+}
+</script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
