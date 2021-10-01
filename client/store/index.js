@@ -36,6 +36,9 @@ export const mutations = {
   CHECK_LOGIN(state, payload) {
     state.token = payload
   },
+  REMOVE_TOKEN(state) {
+    state.token = null
+  },
 }
 
 export const actions = {

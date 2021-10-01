@@ -30,6 +30,6 @@ router.post(
 
 router.patch("/increase-stock/:id", checkLogin, checkAdmin, increaseStock);
 
-router.delete("/remove-product/:id", checkLogin, checkAdmin, removeProduct);
+router.delete("/remove/:id", checkLogin, checkAdmin, removeProduct);
 
 module.exports = router;
