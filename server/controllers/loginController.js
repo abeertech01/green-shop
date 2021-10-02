@@ -19,24 +19,22 @@ const login = async (req, res) => {
         const tokenAndUserObj = await getToken(req.body);
         const userObject = tokenAndUserObj.userObject;
         const token = tokenAndUserObj.token;
-        res.json({
+        res.status(200).json({
           userObject,
           token,
         });
       } else {
-        throw createError("Invalid email or password! Try again.");
+        res.status(500).json({
+          error: "Invalid email or password! Try again.",
+        });
       }
     } else {
-      throw createError("Invalid email or password! Try again.");
+      res.status(500).json({
+        error: "Invalid email or password! Try again. 🧨",
+      });
     }
   } catch (err) {
-    res.json({
-      errors: {
-        common: {
-          message: err.message,
-        },
-      },
-    });
+    throw createError(err);
   }
 };
 

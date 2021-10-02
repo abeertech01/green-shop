@@ -4,6 +4,7 @@ export const state = () => {
     boughtProducts: [],
     cartList: 0,
     token: null,
+    loginErrorMsg: null,
   }
 }
 
@@ -39,6 +40,9 @@ export const mutations = {
   REMOVE_TOKEN(state) {
     state.token = null
   },
+  GET_LOGIN_ERROR(state, payload) {
+    state.loginErrorMsg = payload
+  },
 }
 
 export const actions = {
@@ -57,8 +61,26 @@ export const actions = {
       body: JSON.stringify(payload),
     })
     const registered = await res.json()
-    context.state.token = registered.token
+    context.commit('CHECK_LOGIN', registered.token)
 
     localStorage.setItem('green-shop-token', registered.token)
+  },
+  async login(context, payload) {
+    const res = await fetch('http://localhost:9000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    const result = await res.json()
+    if (res.ok) {
+      context.commit('CHECK_LOGIN', result.token)
+      localStorage.setItem('green-shop-token', result.token)
+      this.$router.push('/products')
+    } else {
+      context.commit('GET_LOGIN_ERROR', result.error)
+    }
   },
 }
