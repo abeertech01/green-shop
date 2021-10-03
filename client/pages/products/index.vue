@@ -14,6 +14,7 @@
         </button>
       </div>
       <div class="product-list">
+        <button class="add-prod-btn" @click="addProd">Add a new product</button>
         <ProductCard v-for="prod in products" :key="prod._id" :product="prod" />
       </div>
     </div>
@@ -29,6 +30,9 @@ export default {
     cartList() {
       return this.$store.state.cartList
     },
+  },
+  methods: {
+    addProd() {},
   },
   async created() {
     await this.$store.dispatch('getProducts')
@@ -76,7 +80,25 @@ export default {
   width: 2rem;
   height: 2rem;
 }
+
+/* Product List */
 .product-list {
   margin-top: 4rem;
+}
+
+.product-list .add-prod-btn {
+  width: calc(100% - 1rem);
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  background-color: #14bb75;
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  color: aliceblue;
+}
+
+.product-list .add-prod-btn:hover {
+  background-color: #0caa68;
 }
 </style>
